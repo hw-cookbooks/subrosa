@@ -21,6 +21,8 @@ include_recipe "java"
 include_recipe "leiningen"
 include_recipe "runit"
 
+include_recipe "#{cookbook_name}::user"
+
 tarball = node['subrosa']['tarball']
 path = node['subrosa']['path']
 
