@@ -36,6 +36,8 @@ end
 remote_file tarball do
   source "https://github.com/danlarkin/subrosa/tarball/master"
   action :create_if_missing
+  owner node['subrosa']['user']
+  group node['subrosa']['group']
 end
 
 execute "extract subrosa" do
@@ -46,11 +48,10 @@ execute "extract subrosa" do
   group node['subrosa']['group']
 end
 
-execute "lein uberjar" do
+execute "lein deps uberjar" do
   action :nothing
   subscribes :run, resources( :remote_file => tarball), :immediately
   cwd path
-  environment ({'LEIN_ROOT' => 'true'})
   user node['subrosa']['user']
   group node['subrosa']['group']
 end
