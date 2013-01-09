@@ -18,7 +18,9 @@
 #
 
 user node['subrosa']['user'] do
+  home node['subrosa']['path']
   system true
+  supports :manage_home => true
 end
 
 include_recipe "#{cookbook_name}::group"
