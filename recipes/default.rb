@@ -47,12 +47,12 @@ execute "extract subrosa" do
   creates File.join(path, "project.clj")
 end
 
-execute "lein deps && lein jar" do
+execute "lein deps && lein compile" do
   cwd path
   environment "LEIN_ROOT" => "true"
   user node['subrosa']['user']
   group node['subrosa']['group']
-  creates File.join(path, "subrosa-0.9-SNAPSHOT.jar")
+  creates File.join(path, "classes")
 end
 
 config_file = ::File.join(path, 'etc', 'subrosa.clj')
