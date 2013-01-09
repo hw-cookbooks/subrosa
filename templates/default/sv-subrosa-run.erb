@@ -8,4 +8,4 @@ BASEDIR="<%= node['subrosa']['path'] %>"
 
 exec chpst -u <%= node['subrosa']['user'] %>:<%= node['subrosa']['group'] %> \
 -- $JAVA_CMD $JAVA_OPTS -cp "$BASEDIR/etc/:$BASEDIR/lib/*" -jar \
-"$BASEDIR/subrosa-$(cat $BASEDIR/etc/version.txt)-standalone.jar"
+"$BASEDIR/subrosa-$(cat $BASEDIR/etc/version.txt).jar"

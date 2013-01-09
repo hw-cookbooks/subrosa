@@ -47,7 +47,7 @@ execute "extract subrosa" do
   creates File.join(path, "project.clj")
 end
 
-execute "lein deps && lein uberjar" do
+execute "lein deps && lein jar" do
   cwd path
   environment "LEIN_ROOT" => "true"
   user node['subrosa']['user']
