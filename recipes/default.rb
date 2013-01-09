@@ -41,19 +41,18 @@ remote_file tarball do
 end
 
 execute "extract subrosa" do
-  action :nothing
-  subscribes :run, resources( :remote_file => tarball), :immediately
   command "tar xzvf #{tarball} --strip-components=1 -C #{path}"
   user node['subrosa']['user']
   group node['subrosa']['group']
+  creates File.join(path, "project.clj")
 end
 
 execute "lein deps uberjar" do
-  action :nothing
-  subscribes :run, resources( :remote_file => tarball), :immediately
   cwd path
+  environment "LEIN_ROOT" => "true"
   user node['subrosa']['user']
   group node['subrosa']['group']
+  creates File.join(path, "subrosa-0.9-SNAPSHOT-standalone.jar")
 end
 
 config_file = ::File.join(path, 'etc', 'subrosa.clj')
