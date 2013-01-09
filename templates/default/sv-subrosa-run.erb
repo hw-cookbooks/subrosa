@@ -7,5 +7,4 @@ JAVA_OPTS=${JAVA_OPTS:-"-server"}
 BASEDIR="<%= node['subrosa']['path'] %>"
 
 exec chpst -u <%= node['subrosa']['user'] %>:<%= node['subrosa']['group'] %> \
--- $JAVA_CMD $JAVA_OPTS -cp "$BASEDIR/etc/:$BASEDIR/lib/*" -jar \
-"$BASEDIR/subrosa-$(cat $BASEDIR/etc/version.txt).jar"
+-- $JAVA_CMD $JAVA_OPTS -cp "$BASEDIR/etc/:$BASEDIR/lib/*" subrosa.main

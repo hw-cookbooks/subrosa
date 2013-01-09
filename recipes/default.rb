@@ -52,7 +52,7 @@ execute "lein deps && lein jar" do
   environment "LEIN_ROOT" => "true"
   user node['subrosa']['user']
   group node['subrosa']['group']
-  creates File.join(path, "subrosa-0.9-SNAPSHOT-standalone.jar")
+  creates File.join(path, "subrosa-0.9-SNAPSHOT.jar")
 end
 
 config_file = ::File.join(path, 'etc', 'subrosa.clj')
