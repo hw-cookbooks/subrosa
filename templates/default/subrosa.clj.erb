@@ -4,6 +4,9 @@
 <%- unless node['subrosa']['ssl'] %>
  :ssl {:keystore nil
        :password nil}
+<% else %>
+ :ssl {:keystore "<%= node['subrosa']['ssl']['keystore'] || "subrosa.ks" %>
+       :password "<%= node['subrosa']['ssl']['password'] %>
 <% end %>
 <%- if node['subrosa']['password'].nil? %>
  :password nil
