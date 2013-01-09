@@ -1,7 +1,7 @@
 {:port <%= node['subrosa']['port'] %>
  :host "<%= node['subrosa']['host'] %>"
  :network "<%= node['subrosa']['network'] %>"
- :ssl {:keystore "<%= node['subrosa']['ssl']['keystore'] || "subrosa.ks" %>"
+ :ssl {:keystore "<%= node['subrosa']['ssl']['keystore'] %>"
        :password "<%= node['subrosa']['ssl']['password'] %>"}
 <%- if node['subrosa']['password'].nil? %>
  :password nil
