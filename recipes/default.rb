@@ -32,7 +32,7 @@ directory path do
 end
 
 remote_file tarball do
-  source "https://github.com/danlarkin/subrosa/tarball/master"
+  source "https://github.com/danlarkin/subrosa/tarball/#{node['subrosa']['branch']}"
   action :create_if_missing
 end
 
