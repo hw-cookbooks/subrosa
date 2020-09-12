@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: subrosa
+# Cookbook:: subrosa
 # Recipe:: default
 #
-# Copyright 2012, Heavy Water Operations, LLC
+# Copyright:: 2012, Heavy Water Operations, LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe "java"
-include_recipe "leiningen"
-include_recipe "runit"
+include_recipe 'java'
+include_recipe 'leiningen'
+include_recipe 'runit'
 
 tarball = node['subrosa']['tarball']
 path = node['subrosa']['path']
@@ -28,7 +28,7 @@ directory path do
   owner node['subrosa']['user']
   group node['subrosa']['group']
   recursive true
-  mode 00755
+  mode '755'
 end
 
 remote_file tarball do
@@ -36,17 +36,17 @@ remote_file tarball do
   action :create_if_missing
 end
 
-execute "extract subrosa" do
+execute 'extract subrosa' do
   action :nothing
-  subscribes :run, resources( :remote_file => tarball), :immediately
+  subscribes :run, "remote_file[#{tarball}]", :immediately
   command "tar xzvf #{tarball} --strip-components=1 -C #{path}"
 end
 
-execute "lein uberjar" do
+execute 'lein uberjar' do
   action :nothing
-  subscribes :run, resources( :remote_file => tarball), :immediately
+  subscribes :run, "remote_file[#{tarball}]", :immediately
   cwd path
-  environment ({'LEIN_ROOT' => 'true'})
+  environment({ 'LEIN_ROOT' => 'true' })
 end
 
 config_file = ::File.join(path, 'etc', 'subrosa.clj')
@@ -55,16 +55,16 @@ directory ::File.dirname(config_file) do
   owner node['subrosa']['user']
   group node['subrosa']['group']
   recursive true
-  mode 00755
+  mode '755'
 end
 
 template config_file do
   owner node['subrosa']['user']
   group node['subrosa']['group']
-  mode 00644
+  mode '644'
 end
 
-runit_service "subrosa" do
-  subscribes :restart, resources( :template => config_file )
+runit_service 'subrosa' do
+  subscribes :restart, "template[#{config_file}]"
 end
 
