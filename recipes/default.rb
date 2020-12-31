@@ -67,4 +67,3 @@ end
 runit_service 'subrosa' do
   subscribes :restart, "template[#{config_file}]"
 end
-
